@@ -3,8 +3,6 @@ import datetime
 from typing import List
 
 
-DAY_MICRO_SECONDS = 24 * 3600 * 1000
-
 def read_file_and_filter(file_path: str) -> str:
     """
     Read the file and filter the records
@@ -39,10 +37,9 @@ def sort_and_output_records(date: str, records: dict):
 
 def output_file(date: str, records: list):
     """
-    TODO:: optimize
     Output the records to a file
     """
     with open(f'./resources/results/{date}.txt', 'w', encoding='utf-8') as handler:
-        to_write_records = [json.dumps(record, ensure_ascii=False) + '\n' for record in records]
+        to_write_records = [f'{json.dumps(record, ensure_ascii=False)}\n' for record in records]
         handler.writelines(to_write_records)
     return date
