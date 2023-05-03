@@ -2,7 +2,7 @@ import os
 import time
 from concurrent.futures import ProcessPoolExecutor, as_completed
 
-from common import read_file, sort_records
+from common import read_file_and_filter, sort_and_output_records
 
 
 def main():
@@ -20,7 +20,7 @@ def main():
     with ProcessPoolExecutor() as process_pool_executor:
         # read the files and filter the records
         for file in all_source_files:
-            todo_read_tasks.append(process_pool_executor.submit(read_file, file))
+            todo_read_tasks.append(process_pool_executor.submit(read_file_and_filter, file))
         done_read_iter = as_completed(todo_read_tasks)
         for future in done_read_iter:
             records_with_date = future.result()
@@ -32,7 +32,7 @@ def main():
 
         # sort the records and output to files
         for date, records in all_records_by_date.items():
-            future = process_pool_executor.submit(sort_records, date, records)
+            future = process_pool_executor.submit(sort_and_output_records, date, records)
             todo_sort_tasks[future] = date
         done_sort_iter = as_completed(todo_sort_tasks)
         for future in done_sort_iter:
