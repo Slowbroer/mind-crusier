@@ -8,6 +8,17 @@
 4. 读取和过滤的操作结束后，将`dictionary`的`values`再次交给多个workers进程同时进行排序和文件输出；
 5. 输出结果
 
+# Requirements
+
+- Python: 3.9
+
+# How to execute?
+
+1. 将原文件放到`/resources/records`目录下
+2. 执行`python main.py`
+
+
+
 
 # Result
 
